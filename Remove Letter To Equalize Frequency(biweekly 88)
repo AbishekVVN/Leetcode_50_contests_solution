@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool equalFrequency(string word) {
+        int cnt[26] = {};
+        
+        for(char ch : word) cnt[ch-'a']++;
+        
+        for(int i = 0; i < word.size(); i++){
+            
+            cnt[word[i]-'a']--;
+            int feq = i == 0 ? cnt[word[i+1]-'a'] : cnt[word[0]-'a'];
+            
+            if(all_of(cnt,cnt+26,[&](int n){
+                return n == 0 || n == feq;
+            })) return true;
+               
+            cnt[word[i]-'a']++;
+        }
+        
+        return false;
+    }
+};
